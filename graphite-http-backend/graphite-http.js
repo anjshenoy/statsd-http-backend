@@ -9,7 +9,6 @@
  * This backend supports the following config options:
  *
  *   bridgeURL: URL of the HTTP bridge, with trailing slash.
- *   api_key: API key, appended to URL.
  */
 
 var net = require('net'),
@@ -20,7 +19,6 @@ var net = require('net'),
 var debug;
 var flushInterval;
 var bridgeURL;
-var api_key;
 
 // prefix configuration
 var globalPrefix;
@@ -65,7 +63,7 @@ var post_stats = function graphite_post_stats(metricsArray) {
 
       var data = JSON.stringify(metricsArray);
 
-      var options = url.parse(bridgeURL + api_key);
+      var options = url.parse(bridgeURL);
       options.method = 'POST';
       options.headers = {'Content-Length': data.length};
 
@@ -180,7 +178,6 @@ var backend_status = function graphite_status(writeCb) {
 exports.init = function graphite_init(startup_time, config, events) {
   debug = config.debug;
   bridgeURL = config.bridgeURL;
-  api_key = config.api_key;
   config.graphite = config.graphite || {};
   globalPrefix    = config.graphite.globalPrefix;
   prefixCounter   = config.graphite.prefixCounter;
