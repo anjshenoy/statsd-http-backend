@@ -66,6 +66,7 @@ var post_stats = function graphite_post_stats(metricsArray) {
       var options = url.parse(bridgeURL);
       options.method = 'POST';
       options.headers = {'Content-Length': data.length};
+      options.headers = {'Content-Type': "application/octet-stream"};
 
       var req = http.request(options, function(res) {
         res.setEncoding('utf8');
