@@ -61,7 +61,7 @@ var post_stats = function graphite_post_stats(metricsArray) {
       metricsArray.push(new metric(namespace + '.graphiteStats.flush_time', flush_time, ts));
       metricsArray.push(new metric(namespace + '.graphiteStats.flush_length', flush_length, ts));
 
-      var data = JSON.stringify(metricsArray);
+      var data = metricsArray;
 
       var options = url.parse(bridgeURL);
       options.method = 'POST';
