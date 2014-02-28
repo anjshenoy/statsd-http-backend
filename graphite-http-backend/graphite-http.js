@@ -15,6 +15,7 @@ var net = require('net'),
     util = require('util'),
     http = require('http'),
     url = require('url');
+    os = require('os');
 
 var debug;
 var flushInterval;
@@ -39,9 +40,7 @@ var setsNamespace    = [];
 var graphiteStats = {};
 
 function metric(path, val, timestamp){
-    this.metric = path;
-    this.value = val;
-    this.timestamp = timestamp;
+    this.line = path + " " + val + " " + timestamp + " " + os.hostname();
 }
 
 var post_stats = function graphite_post_stats(metricsArray) {
@@ -61,7 +60,7 @@ var post_stats = function graphite_post_stats(metricsArray) {
       metricsArray.push(new metric(namespace + '.graphiteStats.flush_time', flush_time, ts));
       metricsArray.push(new metric(namespace + '.graphiteStats.flush_length', flush_length, ts));
 
-      var data = metricsArray;
+      var data = metricsArray.map(function(x){ return x.line; }).join("\n");
 
       var options = url.parse(bridgeURL);
       options.method = 'POST';
