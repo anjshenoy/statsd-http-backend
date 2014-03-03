@@ -15,7 +15,6 @@ var net = require('net'),
     util = require('util'),
     http = require('http'),
     url = require('url');
-    os = require('os');
 
 var debug;
 var flushInterval;
@@ -61,8 +60,8 @@ var post_stats = function graphite_post_stats(metricsArray) {
       metricsArray.push(new metric(namespace + '.graphiteStats.flush_length', flush_length, ts));
 
       var data = metricsArray.map(function(x){ return x.line; }).join("\n");
+      var metadata = typeof(hostname) == "undefined" ? "" : ("hostname=" + hostname);
 
-      var metadata = "hostname=" + os.hostname;
       var options = url.parse(bridgeURL, metadata);
 
       options.method = 'POST';
@@ -180,6 +179,7 @@ var backend_status = function graphite_status(writeCb) {
 exports.init = function graphite_init(startup_time, config, events) {
   debug = config.debug;
   bridgeURL = config.bridgeURL;
+  hostname = config.hostname;
   config.graphite = config.graphite || {};
   globalPrefix    = config.graphite.globalPrefix;
   prefixCounter   = config.graphite.prefixCounter;
