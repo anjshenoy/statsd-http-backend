@@ -1,6 +1,6 @@
 {
   "name": "statsd-http-backend",
-  "description": "A backend for StatsD to emit stats in graphite via an HTTP Bridge without JSON encoding",
+  "description": "A backend for StatsD to emit stats in graphite via an HTTP Bridge without JSON encoding. Meant to be used in conjunction with etsy/statsd",
   "author": "Brian Hatfield",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
   "devDependencies": {
   },
   "engine": {
-    "node": ">=0.4"
+    "node": ">=0.8"
   },
   "main": "graphite-http-backend/graphite-http.js"
 }
