@@ -40,7 +40,7 @@ var setsNamespace    = [];
 var graphiteStats = {};
 
 function metric(path, val, timestamp){
-    this.line = path + " " + val + " " + timestamp + " " + os.hostname();
+    this.line = path + " " + val + " " + timestamp + " ";
 }
 
 var post_stats = function graphite_post_stats(metricsArray) {
@@ -62,7 +62,9 @@ var post_stats = function graphite_post_stats(metricsArray) {
 
       var data = metricsArray.map(function(x){ return x.line; }).join("\n");
 
-      var options = url.parse(bridgeURL);
+      var metadata = "hostname=" + os.hostname;
+      var options = url.parse(bridgeURL, metadata);
+
       options.method = 'POST';
       options.headers = {'Content-Length': data.length};
       options.headers = {'Content-Type': "application/octet-stream"};
