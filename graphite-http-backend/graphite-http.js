@@ -1,10 +1,10 @@
 /*
  * Flush stats to graphite (http://graphite.wikidot.com/).
  *
- * To enable this backend, include 'graphite-http' in the backends
- * configuration array:
+ * To enable this backend, include 'statsd-http-backend' in the backends
+ * configuration array for statsd:
  *
- *   backends: ['graphite-http']
+ *   backends: ['statsd-http-backend']
  *
  * This backend supports the following config options:
  *

@@ -1,12 +1,12 @@
 statsd-http-backend
 ===================
 
-POSTS Data in JSON List format to an HTTP Backend
+POST Data to a HTTP Backend
 
 installation
 ============
 
-   npm install statsd-graphite-http-backend
+   npm install statsd-http-backend
 
 usage
 =====
@@ -15,13 +15,20 @@ In config.js:
 
 ```
 {
-backends: [ "statsd-graphite-http-backend" ],
-api_key: 'YOUR CONFIGURED API KEY',
-bridgeURL: 'http://GRAPHITE_SERVER:HTTP_PORT/publish/'
+backends: [ "statsd-http-backend" ],
+hostname: "HOSTNAME ON WHICH THIS CODE IS DEPLOYED",
+bridgeURL: "http://yourdomain.that.eats.this.post"
 }
 ```
 
 notes
 =====
 
-Should work with both [Backstop](https://github.com/obfuscurity/backstop) and [Graphite HTTP Bridge](https://github.com/bmhatfield/graphite-http-bridge)
+Submits a POST to any domain that the bridgeURL exposes. Hostname is
+optional. If specified, it gets added to the URL as a query param like
+so:
+
+
+```
+http://yourdomain.that.eats.this.post?hostname=myhost.name.com
+```
