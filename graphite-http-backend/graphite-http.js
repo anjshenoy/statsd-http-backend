@@ -60,8 +60,6 @@ var post_stats = function graphite_post_stats(metricsArray) {
       metricsArray.push(new metric(namespace + '.graphiteStats.flush_length', flush_length, ts));
 
       var data = metricsArray.map(function(x){ return x.line; }).join("\n");
-      var metadata = typeof(hostname) == "undefined" ? "" : ("hostname=" + hostname);
-      bridgeURL += "?" + metadata;
 
       var options = url.parse(bridgeURL);
 
@@ -197,6 +195,7 @@ exports.init = function graphite_init(startup_time, config, events) {
   prefixSet     = prefixSet !== undefined ? prefixSet : "sets";
   legacyNamespace = legacyNamespace !== undefined ? legacyNamespace : true;
 
+  bridgeURL += (typeof(hostname) == "undefined" ? "" : ("?hostname=" + hostname));
 
   if (legacyNamespace === false) {
     if (globalPrefix !== "") {
