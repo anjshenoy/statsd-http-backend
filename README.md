@@ -16,7 +16,7 @@ In config.js:
 ```
 {
 backends: [ "statsd-http-backend" ],
-hostname: "HOSTNAME ON WHICH THIS CODE IS DEPLOYED",
+hostname: "hostname.where.deployed"
 bridgeURL: "http://yourdomain.that.eats.this.post"
 }
 ```
