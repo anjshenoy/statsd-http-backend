@@ -61,8 +61,9 @@ var post_stats = function graphite_post_stats(metricsArray) {
 
       var data = metricsArray.map(function(x){ return x.line; }).join("\n");
       var metadata = typeof(hostname) == "undefined" ? "" : ("hostname=" + hostname);
+      bridgeURL += "?" + metadata;
 
-      var options = url.parse(bridgeURL, metadata);
+      var options = url.parse(bridgeURL);
 
       options.method = 'POST';
       options.headers = {'Content-Length': data.length};
